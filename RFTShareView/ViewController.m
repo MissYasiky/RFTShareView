@@ -44,7 +44,20 @@ static NSArray * shareIconDate()
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self p_showShareMoreView];
+    [self.view setBackgroundColor:[UIColor lightGrayColor]];
+    
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button.layer.borderWidth = 1.0f;
+    button.layer.borderColor = [UIColor whiteColor].CGColor;
+    button.layer.cornerRadius = 4.0f;
+    
+    [button setTitle:@"显示菜单" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
+    [button addTarget:self action:@selector(p_showShareMoreView) forControlEvents:UIControlEventTouchUpInside];
+    button.frame = CGRectMake((screenBounds.size.width - 100)/2., 100.0f, 100.0f, 44.0f);
+    [self.view addSubview:button];
 }
 
 - (void)didReceiveMemoryWarning {
