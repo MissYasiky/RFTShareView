@@ -35,8 +35,10 @@ static NSArray * shareIconDate()
 
 @interface ViewController ()<RFTShareMoreViewDateSource, RFTShareMoreViewDelegate>
 
-@property (nonatomic, retain) RFTShareMoreView *shareView;
-@property (nonatomic, retain) UIView           *coverView;
+@property (nonatomic, retain) IBOutlet UIButton *button;
+@property (nonatomic, retain) UIAlertController *alertController;
+@property (nonatomic, retain) RFTShareMoreView  *shareView;
+@property (nonatomic, retain) UIView            *coverView;
 
 @end
 
@@ -44,20 +46,11 @@ static NSArray * shareIconDate()
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor lightGrayColor]];
     
-    CGRect screenBounds = [UIScreen mainScreen].bounds;
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    button.layer.borderWidth = 1.0f;
-    button.layer.borderColor = [UIColor whiteColor].CGColor;
-    button.layer.cornerRadius = 4.0f;
+    _alertController = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     
-    [button setTitle:@"显示菜单" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
-    [button addTarget:self action:@selector(p_showShareMoreView) forControlEvents:UIControlEventTouchUpInside];
-    button.frame = CGRectMake((screenBounds.size.width - 100)/2., 100.0f, 100.0f, 44.0f);
-    [self.view addSubview:button];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"got it!" style:UIAlertActionStyleCancel handler:nil];
+    [_alertController addAction:cancelAction];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,7 +102,7 @@ static NSArray * shareIconDate()
 }
 
 #pragma mark - WDShareMoreView related
--(void)p_showShareMoreView
+-(IBAction)showShareMoreView:(id)sender
 {
     CGRect rect = self.view.frame;
     
@@ -180,23 +173,16 @@ static NSArray * shareIconDate()
     
     NSString *link = @"the link you want to copy";
     
-    if ([link length] > 0) {
-        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        [pasteboard setString:link];
-        
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"链接已拷贝" preferredStyle:UIAlertControllerStyleAlert];
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [alertController presentationController];
-        });
-        
-    }else {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"拷贝链接出错" preferredStyle:UIAlertControllerStyleAlert];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [alertController presentationController];
-        });
-    }
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    [pasteboard setString:link];
+    
+    
+    _alertController.title = @"链接已拷贝";
+    _alertController.message = link;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:_alertController animated:YES completion:nil];
+    });
 }
 
 @end

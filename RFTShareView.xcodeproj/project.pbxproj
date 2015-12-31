@@ -15,6 +15,7 @@
 		2193D3801C35100E00EAAFC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2193D37E1C35100E00EAAFC0 /* LaunchScreen.storyboard */; };
 		2193D3891C3511A200EAAFC0 /* RFTShareIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 2193D3881C3511A200EAAFC0 /* RFTShareIcon.m */; };
 		2193D38C1C3515F900EAAFC0 /* RFTShareMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2193D38B1C3515F900EAAFC0 /* RFTShareMoreView.m */; };
+		2193D38E1C352E2300EAAFC0 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2193D38D1C352E2300EAAFC0 /* ViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		2193D3881C3511A200EAAFC0 /* RFTShareIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFTShareIcon.m; sourceTree = "<group>"; };
 		2193D38A1C3515F900EAAFC0 /* RFTShareMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFTShareMoreView.h; sourceTree = "<group>"; };
 		2193D38B1C3515F900EAAFC0 /* RFTShareMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFTShareMoreView.m; sourceTree = "<group>"; };
+		2193D38D1C352E2300EAAFC0 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				2193D3741C35100E00EAAFC0 /* AppDelegate.m */,
 				2193D3761C35100E00EAAFC0 /* ViewController.h */,
 				2193D3771C35100E00EAAFC0 /* ViewController.m */,
+				2193D38D1C352E2300EAAFC0 /* ViewController.xib */,
 				2193D3791C35100E00EAAFC0 /* Main.storyboard */,
 				2193D37C1C35100E00EAAFC0 /* Assets.xcassets */,
 				2193D37E1C35100E00EAAFC0 /* LaunchScreen.storyboard */,
@@ -148,6 +151,7 @@
 			files = (
 				2193D3801C35100E00EAAFC0 /* LaunchScreen.storyboard in Resources */,
 				2193D37D1C35100E00EAAFC0 /* Assets.xcassets in Resources */,
+				2193D38E1C352E2300EAAFC0 /* ViewController.xib in Resources */,
 				2193D37B1C35100E00EAAFC0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,6 +278,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RFTShareView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.YJXie.RFTShareView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -285,6 +290,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RFTShareView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.YJXie.RFTShareView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -310,6 +316,7 @@
 				2193D3861C35100E00EAAFC0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
