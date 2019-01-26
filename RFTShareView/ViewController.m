@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "RFTShareIcon.h"
-#import "RFTShareMoreView.h"
+#import "RFTShareActionView.h"
 
 static NSString *kIconImageKey = @"kIconImageKey";
 static NSString *kIconLabelKey = @"kIconLabelKey";
@@ -33,10 +33,10 @@ static NSArray * shareIconDate()
     return array;
 }
 
-@interface ViewController () <RFTShareMoreViewDateSource, RFTShareMoreViewDelegate>
+@interface ViewController () <RFTShareActionViewDateSource, RFTShareActionViewDelegate>
 
-@property (nonatomic, retain) IBOutlet UIButton *button;
-@property (nonatomic, retain) RFTShareMoreView  *shareView;
+@property (nonatomic,   weak) IBOutlet UIButton *button;
+@property (nonatomic, strong) RFTShareActionView  *shareView;
 
 @end
 
@@ -48,41 +48,41 @@ static NSArray * shareIconDate()
 
 #pragma mark - Getter & Setter
 
-- (RFTShareMoreView *)shareView {
+- (RFTShareActionView *)shareView {
     if (_shareView == nil) {
-        _shareView = [[RFTShareMoreView alloc] initWithDataSource:self delegate:self];
+        _shareView = [[RFTShareActionView alloc] initWithDataSource:self delegate:self];
     }
     return _shareView;
 }
 
-#pragma mark - RFTShareMoreView DateSource
+#pragma mark - RFTShareActionView DateSource
 
-- (NSInteger)numberOfSectionsInShareMoreView:(RFTShareMoreView *)shareMoreView
+- (NSInteger)numberOfSectionsInShareMoreView:(RFTShareActionView *)shareMoreView
 {
     return [shareIconDate() count];
 }
 
-- (NSInteger)shareMoreView:(RFTShareMoreView *)shareMoreView numberOfIconsInSection:(NSInteger)section
+- (NSInteger)shareMoreView:(RFTShareActionView *)shareMoreView numberOfIconsInSection:(NSInteger)section
 {
     NSArray *array = (NSArray *)shareIconDate()[section];
     return [array count];
 }
 
-- (RFTShareIcon *)shareMoreView:(RFTShareMoreView *)shareMoreView objectForIconAtIndexPath:(NSIndexPath *)indexPath
+- (RFTShareIcon *)shareMoreView:(RFTShareActionView *)shareMoreView objectForIconAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *info = shareIconDate()[indexPath.section][indexPath.row];
     RFTShareIcon *shareIcon = [[RFTShareIcon alloc] initWithImageName:info[kIconImageKey] LabelString:info[kIconLabelKey]];
     return shareIcon;
 }
 
-#pragma mark - RFTShareMoreView Delegate
+#pragma mark - RFTShareActionView Delegate
 
-- (void)dismissShareMoreView:(RFTShareMoreView *)shareMoreView
+- (void)dismissShareMoreView:(RFTShareActionView *)shareMoreView
 {
     [self.shareView dissmiss];
 }
 
-- (void)shareMoreView:(RFTShareMoreView *)shareMoreView didSelectedIconWithName:(NSString *)iconName
+- (void)shareMoreView:(RFTShareActionView *)shareMoreView didSelectedIconWithName:(NSString *)iconName
 {
     if([iconName isEqualToString:@"微信"] || [iconName isEqualToString:@"朋友圈"] || [iconName isEqualToString:@"QQ"] || [iconName isEqualToString:@"新浪微博"]){
         //share to the third platform, eg: weChat, qq, sina

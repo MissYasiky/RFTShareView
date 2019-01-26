@@ -12,7 +12,7 @@
 		2193D3781C35100E00EAAFC0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2193D3771C35100E00EAAFC0 /* ViewController.m */; };
 		2193D37D1C35100E00EAAFC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2193D37C1C35100E00EAAFC0 /* Assets.xcassets */; };
 		2193D3891C3511A200EAAFC0 /* RFTShareIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 2193D3881C3511A200EAAFC0 /* RFTShareIcon.m */; };
-		2193D38C1C3515F900EAAFC0 /* RFTShareMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2193D38B1C3515F900EAAFC0 /* RFTShareMoreView.m */; };
+		2193D38C1C3515F900EAAFC0 /* RFTShareActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2193D38B1C3515F900EAAFC0 /* RFTShareActionView.m */; };
 		2193D38E1C352E2300EAAFC0 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2193D38D1C352E2300EAAFC0 /* ViewController.xib */; };
 /* End PBXBuildFile section */
 
@@ -27,8 +27,8 @@
 		2193D3811C35100E00EAAFC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2193D3871C3511A200EAAFC0 /* RFTShareIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFTShareIcon.h; sourceTree = "<group>"; };
 		2193D3881C3511A200EAAFC0 /* RFTShareIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFTShareIcon.m; sourceTree = "<group>"; };
-		2193D38A1C3515F900EAAFC0 /* RFTShareMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFTShareMoreView.h; sourceTree = "<group>"; };
-		2193D38B1C3515F900EAAFC0 /* RFTShareMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFTShareMoreView.m; sourceTree = "<group>"; };
+		2193D38A1C3515F900EAAFC0 /* RFTShareActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFTShareActionView.h; sourceTree = "<group>"; };
+		2193D38B1C3515F900EAAFC0 /* RFTShareActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFTShareActionView.m; sourceTree = "<group>"; };
 		2193D38D1C352E2300EAAFC0 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,8 +64,8 @@
 			children = (
 				2193D3871C3511A200EAAFC0 /* RFTShareIcon.h */,
 				2193D3881C3511A200EAAFC0 /* RFTShareIcon.m */,
-				2193D38A1C3515F900EAAFC0 /* RFTShareMoreView.h */,
-				2193D38B1C3515F900EAAFC0 /* RFTShareMoreView.m */,
+				2193D38A1C3515F900EAAFC0 /* RFTShareActionView.h */,
+				2193D38B1C3515F900EAAFC0 /* RFTShareActionView.m */,
 				2193D3731C35100E00EAAFC0 /* AppDelegate.h */,
 				2193D3741C35100E00EAAFC0 /* AppDelegate.m */,
 				2193D3761C35100E00EAAFC0 /* ViewController.h */,
@@ -156,7 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2193D3781C35100E00EAAFC0 /* ViewController.m in Sources */,
-				2193D38C1C3515F900EAAFC0 /* RFTShareMoreView.m in Sources */,
+				2193D38C1C3515F900EAAFC0 /* RFTShareActionView.m in Sources */,
 				2193D3891C3511A200EAAFC0 /* RFTShareIcon.m in Sources */,
 				2193D3751C35100E00EAAFC0 /* AppDelegate.m in Sources */,
 				2193D3721C35100E00EAAFC0 /* main.m in Sources */,

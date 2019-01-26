@@ -1,12 +1,12 @@
 //
-//  RFTShareMoreView.m
+//  RFTShareActionView.m
 //  RFTShareView
 //
 //  Created by YJXie on 15/12/31.
 //  Copyright © 2015年 YJXie. All rights reserved.
 //
 
-#import "RFTShareMoreView.h"
+#import "RFTShareActionView.h"
 #import "RFTShareIcon.h"
 
 static NSTimeInterval kDuration = 0.3;
@@ -16,20 +16,20 @@ static int32_t const kIconSizeWidth  = 54;
 static int32_t const kIconSizeHeight = 76;
 static int32_t const kIconPadding    = 18;
 
-@interface RFTShareMoreView ()
+@interface RFTShareActionView ()
 
-@property (nonatomic,   weak) id<RFTShareMoreViewDelegate> delegate;
-@property (nonatomic,   weak) id<RFTShareMoreViewDateSource> dateSource;
+@property (nonatomic,   weak) id<RFTShareActionViewDelegate> delegate;
+@property (nonatomic,   weak) id<RFTShareActionViewDateSource> dateSource;
 @property (nonatomic, strong) UIView *coverView;
 @property (nonatomic, strong) UIView *shareActionView;
 @property (nonatomic, strong) UIButton *cancleButton;
 
 @end
 
-@implementation RFTShareMoreView
+@implementation RFTShareActionView
 
-- (instancetype)initWithDataSource:(id<RFTShareMoreViewDateSource>)dataSource
-                          delegate:(id<RFTShareMoreViewDelegate>)delegate {
+- (instancetype)initWithDataSource:(id<RFTShareActionViewDateSource>)dataSource
+                          delegate:(id<RFTShareActionViewDelegate>)delegate {
     self = [super init];
     if (self) {
         
@@ -107,6 +107,11 @@ static int32_t const kIconPadding    = 18;
         return;
     }
     
+    NSInteger section = [self.dateSource numberOfSectionsInShareMoreView:self];
+    if (section <= 0) {
+        return;
+    }
+    
     CGFloat width = self.frame.size.width;
     
     UIView *blueLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 1)];
@@ -119,9 +124,6 @@ static int32_t const kIconPadding    = 18;
     titleLabel.font = [UIFont systemFontOfSize:14];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.shareActionView addSubview:titleLabel];
-    
-    NSInteger section = [self.dateSource numberOfSectionsInShareMoreView:self];
-    if (section <= 0) return;
     
     CGFloat originX = (width - 4 * kIconSizeWidth) / 5;
     CGFloat originY = titleLabel.frame.size.height;
