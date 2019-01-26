@@ -36,7 +36,6 @@ static NSArray * shareIconDate()
 @interface ViewController () <RFTShareMoreViewDateSource, RFTShareMoreViewDelegate>
 
 @property (nonatomic, retain) IBOutlet UIButton *button;
-@property (nonatomic, retain) UIAlertController *alertController;
 @property (nonatomic, retain) RFTShareMoreView  *shareView;
 
 @end
@@ -45,11 +44,6 @@ static NSArray * shareIconDate()
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _alertController = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"got it!" style:UIAlertActionStyleCancel handler:nil];
-    [_alertController addAction:cancelAction];
 }
 
 #pragma mark - Getter & Setter
@@ -117,12 +111,12 @@ static NSArray * shareIconDate()
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     [pasteboard setString:link];
     
-    
-    _alertController.title = @"链接已拷贝";
-    _alertController.message = link;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"链接已拷贝" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"got it!" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancelAction];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self presentViewController:_alertController animated:YES completion:nil];
+        [self presentViewController:alertController animated:YES completion:nil];
     });
 }
 

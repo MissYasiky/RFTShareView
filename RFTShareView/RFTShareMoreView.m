@@ -9,6 +9,9 @@
 #import "RFTShareMoreView.h"
 #import "RFTShareIcon.h"
 
+static NSTimeInterval kDuration = 0.3;
+static CGFloat kCoverViewAlpha = 0.4;
+
 static int32_t const kIconSizeWidth  = 54;
 static int32_t const kIconSizeHeight = 76;
 static int32_t const kIconPadding    = 18;
@@ -77,17 +80,17 @@ static int32_t const kIconPadding    = 18;
     
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationDuration:kDuration];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
     CGRect mviewRc = self.shareActionView.frame;
     mviewRc.origin.y = self.frame.size.height - self.shareActionView.frame.size.height;
     self.shareActionView.frame = mviewRc;
-    self.coverView.alpha = 0.4;
+    self.coverView.alpha = kCoverViewAlpha;
     [UIView commitAnimations];
 }
 
 - (void)dissmiss {
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:kDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         CGRect mviewRc = self.shareActionView.frame;
         mviewRc.origin.y = self.frame.size.height;
         self.shareActionView.frame = mviewRc;
@@ -99,8 +102,11 @@ static int32_t const kIconPadding    = 18;
 
 #pragma mark - Private Method
 
-- (void)setupSubviews
-{
+- (void)setupSubviews {
+    if (self.dateSource == nil) {
+        return;
+    }
+    
     CGFloat width = self.frame.size.width;
     
     UIView *blueLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 1)];
@@ -121,7 +127,7 @@ static int32_t const kIconPadding    = 18;
     CGFloat originY = titleLabel.frame.size.height;
     
     for (int i = 0; i < section; i++) {
-        NSInteger iconsNumber = [_dateSource shareMoreView:self numberOfIconsInSection:i];
+        NSInteger iconsNumber = [self.dateSource shareMoreView:self numberOfIconsInSection:i];
         if (iconsNumber <= 0) {
             continue;
         }
@@ -129,7 +135,7 @@ static int32_t const kIconPadding    = 18;
         NSInteger row = 0;
         for (int j = 0; j < iconsNumber; j++) {
             NSIndexPath *index = [NSIndexPath indexPathForRow:j inSection:i];
-            RFTShareIcon *object = [_dateSource shareMoreView:self objectForIconAtIndexPath:index];
+            RFTShareIcon *object = [self.dateSource shareMoreView:self objectForIconAtIndexPath:index];
             object.frame = CGRectMake(originX + row % 4 * (originX + kIconSizeWidth), originY + row / 4 * (kIconSizeHeight + kIconPadding), kIconSizeWidth , kIconSizeHeight);
             [self.shareActionView addSubview:object];
             
@@ -167,14 +173,16 @@ static int32_t const kIconPadding    = 18;
 
 #pragma mark - action
 
-- (void)iconSelectedAction:(RFTShareIcon *)icon
-{
-    [_delegate shareMoreView:self didSelectedIconWithName:[icon iconName]];
+- (void)iconSelectedAction:(RFTShareIcon *)icon {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(shareMoreView:didSelectedIconWithName:)]) {
+        [self.delegate shareMoreView:self didSelectedIconWithName:[icon iconName]];
+    }
 }
 
-- (void)dismissAction
-{
-    [_delegate dismissShareMoreView:self];
+- (void)dismissAction {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(dismissShareMoreView:)]) {
+        [self.delegate dismissShareMoreView:self];
+    }
 }
 
 @end
