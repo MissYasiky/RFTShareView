@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		217C509D21FC743F0030B883 /* RFTShareActionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 217C509C21FC743F0030B883 /* RFTShareActionViewModel.m */; };
 		2193D3721C35100E00EAAFC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2193D3711C35100E00EAAFC0 /* main.m */; };
 		2193D3751C35100E00EAAFC0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2193D3741C35100E00EAAFC0 /* AppDelegate.m */; };
 		2193D3781C35100E00EAAFC0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2193D3771C35100E00EAAFC0 /* ViewController.m */; };
@@ -17,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		217C509B21FC743F0030B883 /* RFTShareActionViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RFTShareActionViewModel.h; sourceTree = "<group>"; };
+		217C509C21FC743F0030B883 /* RFTShareActionViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RFTShareActionViewModel.m; sourceTree = "<group>"; };
 		2193D36D1C35100E00EAAFC0 /* RFTShareView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RFTShareView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2193D3711C35100E00EAAFC0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2193D3731C35100E00EAAFC0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -66,6 +69,8 @@
 				2193D3881C3511A200EAAFC0 /* RFTShareIcon.m */,
 				2193D38A1C3515F900EAAFC0 /* RFTShareActionView.h */,
 				2193D38B1C3515F900EAAFC0 /* RFTShareActionView.m */,
+				217C509B21FC743F0030B883 /* RFTShareActionViewModel.h */,
+				217C509C21FC743F0030B883 /* RFTShareActionViewModel.m */,
 				2193D3731C35100E00EAAFC0 /* AppDelegate.h */,
 				2193D3741C35100E00EAAFC0 /* AppDelegate.m */,
 				2193D3761C35100E00EAAFC0 /* ViewController.h */,
@@ -156,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2193D3781C35100E00EAAFC0 /* ViewController.m in Sources */,
+				217C509D21FC743F0030B883 /* RFTShareActionViewModel.m in Sources */,
 				2193D38C1C3515F900EAAFC0 /* RFTShareActionView.m in Sources */,
 				2193D3891C3511A200EAAFC0 /* RFTShareIcon.m in Sources */,
 				2193D3751C35100E00EAAFC0 /* AppDelegate.m in Sources */,

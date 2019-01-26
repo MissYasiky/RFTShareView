@@ -19,7 +19,7 @@ static int32_t const kIconPadding    = 18;
 @interface RFTShareActionView ()
 
 @property (nonatomic,   weak) id<RFTShareActionViewDelegate> delegate;
-@property (nonatomic,   weak) id<RFTShareActionViewDateSource> dateSource;
+@property (nonatomic, strong) RFTShareActionViewModel *viewModel;
 @property (nonatomic, strong) UIView *coverView;
 @property (nonatomic, strong) UIView *shareActionView;
 @property (nonatomic, strong) UIButton *cancleButton;
@@ -28,12 +28,11 @@ static int32_t const kIconPadding    = 18;
 
 @implementation RFTShareActionView
 
-- (instancetype)initWithDataSource:(id<RFTShareActionViewDateSource>)dataSource
-                          delegate:(id<RFTShareActionViewDelegate>)delegate {
+- (instancetype)initWithViewModel:(RFTShareActionViewModel *)viewModel
+                         delegate:(id<RFTShareActionViewDelegate>)delegate {
     self = [super init];
     if (self) {
-        
-        _dateSource = dataSource;
+        _viewModel = viewModel;
         _delegate = delegate;
         
         self.frame = [UIScreen mainScreen].bounds;
@@ -103,14 +102,8 @@ static int32_t const kIconPadding    = 18;
 #pragma mark - Private Method
 
 - (void)setupSubviews {
-    if (self.dateSource == nil) {
-        return;
-    }
     
-    NSInteger section = [self.dateSource numberOfSectionsInShareMoreView:self];
-    if (section <= 0) {
-        return;
-    }
+    NSInteger section = [self.viewModel section];
     
     CGFloat width = self.frame.size.width;
     
@@ -129,19 +122,23 @@ static int32_t const kIconPadding    = 18;
     CGFloat originY = titleLabel.frame.size.height;
     
     for (int i = 0; i < section; i++) {
-        NSInteger iconsNumber = [self.dateSource shareMoreView:self numberOfIconsInSection:i];
-        if (iconsNumber <= 0) {
+        NSInteger iconsNumber = [self.viewModel iconNumberAtSection:i];
+        if (iconsNumber == 0) {
             continue;
         }
         
         NSInteger row = 0;
         for (int j = 0; j < iconsNumber; j++) {
             NSIndexPath *index = [NSIndexPath indexPathForRow:j inSection:i];
-            RFTShareIcon *object = [self.dateSource shareMoreView:self objectForIconAtIndexPath:index];
-            object.frame = CGRectMake(originX + row % 4 * (originX + kIconSizeWidth), originY + row / 4 * (kIconSizeHeight + kIconPadding), kIconSizeWidth , kIconSizeHeight);
-            [self.shareActionView addSubview:object];
+            RFTShareType type = [self.viewModel typeAtIndexPath:index];
+            NSString *imageName = [self.viewModel iconImageName:type];
+            NSString *iconText = [self.viewModel iconLabelText:type];
+            RFTShareIcon *shareIcon = [[RFTShareIcon alloc] initWithImageName:imageName LabelString:iconText];
+            shareIcon.tag = type;
+            shareIcon.frame = CGRectMake(originX + row % 4 * (originX + kIconSizeWidth), originY + row / 4 * (kIconSizeHeight + kIconPadding), kIconSizeWidth , kIconSizeHeight);
+            [self.shareActionView addSubview:shareIcon];
             
-            [object addTarget:self action:@selector(iconSelectedAction:) forControlEvents:UIControlEventTouchUpInside];
+            [shareIcon addTarget:self action:@selector(iconSelectedAction:) forControlEvents:UIControlEventTouchUpInside];
             
             row ++;
         }
@@ -176,14 +173,16 @@ static int32_t const kIconPadding    = 18;
 #pragma mark - action
 
 - (void)iconSelectedAction:(RFTShareIcon *)icon {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(shareMoreView:didSelectedIconWithName:)]) {
-        [self.delegate shareMoreView:self didSelectedIconWithName:icon.iconName];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(shareMoreView:didSelectedType:)]) {
+        RFTShareType type = icon.tag;
+        [self.delegate shareMoreView:self didSelectedType:type];
     }
 }
 
 - (void)dismissAction {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(dismissShareMoreView:)]) {
-        [self.delegate dismissShareMoreView:self];
+    [self dissmiss];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didDismissShareMoreView:)]) {
+        [self.delegate didDismissShareMoreView:self];
     }
 }
 
