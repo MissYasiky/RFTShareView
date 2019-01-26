@@ -177,7 +177,7 @@ static int32_t const kIconPadding    = 18;
 
 - (void)iconSelectedAction:(RFTShareIcon *)icon {
     if (self.delegate && [self.delegate respondsToSelector:@selector(shareMoreView:didSelectedIconWithName:)]) {
-        [self.delegate shareMoreView:self didSelectedIconWithName:[icon iconName]];
+        [self.delegate shareMoreView:self didSelectedIconWithName:icon.iconName];
     }
 }
 

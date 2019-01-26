@@ -8,31 +8,29 @@
 
 #import "RFTShareIcon.h"
 
-static int32_t kImageViewSize = 54;
-static int32_t kLabelHeight   = 12;
-static int32_t kPadding       = 10;
+static CGFloat kImageViewSize = 54;
+static CGFloat kLabelHeight   = 12;
+static CGFloat kPadding       = 10;
 
 @interface RFTShareIcon ()
-@property (nonatomic, retain) UIImageView *iconImageView;
-@property (nonatomic, retain) UILabel *iconLabel;
 
+@property (nonatomic, strong) UIImageView *iconImageView;
+@property (nonatomic, strong) UILabel *iconLabel;
+
+@property (nonatomic, copy) NSString *iconName;
 @property (nonatomic, copy) NSString *imageName;
 @property (nonatomic, copy) NSString *selectedImageName;
+
 @end
 
 @implementation RFTShareIcon
 
-- (id) init
-{
-    return [self initWithImageName:@"" LabelString:@""];
-}
-
 - (instancetype) initWithImageName:(NSString *)imageName LabelString:(NSString *)labelString
 {
     if (self = [super init]) {
+        _iconName = labelString;
         _imageName = imageName;
         _selectedImageName = [imageName stringByAppendingString:@"_selected"];
-        _labelName = labelString;
         
         _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kImageViewSize, kImageViewSize)];
         _iconImageView.image = [UIImage imageNamed:imageName];
@@ -46,17 +44,6 @@ static int32_t kPadding       = 10;
         [self addSubview:_iconLabel];
     }
     return self;
-}
-
-- (void)setLabelName:(NSString *)labelName
-{
-    _labelName = labelName;
-    _iconLabel.text = _labelName;
-}
-
-- (NSString *)iconName
-{
-    return _labelName;
 }
 
 - (void)setHighlighted:(BOOL)highlighted

@@ -10,11 +10,11 @@
 
 @interface RFTShareIcon : UIControl
 
-@property (nonatomic, copy) NSString *labelName;
+@property (nonatomic, copy, readonly) NSString *iconName;
+
 /*
  "imageName"为icon的图片名，该icon选中的图片将默认为"imageName_selected"
  */
 - (instancetype) initWithImageName:(NSString *)imageName LabelString:(NSString *)labelString;
-- (NSString *)iconName;
 
 @end
