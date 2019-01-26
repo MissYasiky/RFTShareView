@@ -33,12 +33,11 @@ static NSArray * shareIconDate()
     return array;
 }
 
-@interface ViewController ()<RFTShareMoreViewDateSource, RFTShareMoreViewDelegate>
+@interface ViewController () <RFTShareMoreViewDateSource, RFTShareMoreViewDelegate>
 
 @property (nonatomic, retain) IBOutlet UIButton *button;
 @property (nonatomic, retain) UIAlertController *alertController;
 @property (nonatomic, retain) RFTShareMoreView  *shareView;
-@property (nonatomic, retain) UIView            *coverView;
 
 @end
 
@@ -53,12 +52,17 @@ static NSArray * shareIconDate()
     [_alertController addAction:cancelAction];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - Getter & Setter
+
+- (RFTShareMoreView *)shareView {
+    if (_shareView == nil) {
+        _shareView = [[RFTShareMoreView alloc] initWithDataSource:self delegate:self];
+    }
+    return _shareView;
 }
 
 #pragma mark - RFTShareMoreView DateSource
+
 - (NSInteger)numberOfSectionsInShareMoreView:(RFTShareMoreView *)shareMoreView
 {
     return [shareIconDate() count];
@@ -77,17 +81,11 @@ static NSArray * shareIconDate()
     return shareIcon;
 }
 
-- (NSString *)shareMoreView:(RFTShareMoreView *)shareMoreView iconNameAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSDictionary *info = shareIconDate()[indexPath.section][indexPath.row];
-    return info[kIconLabelKey];
-}
-
-#pragma mark - WDShareMoreViewDelegate
+#pragma mark - RFTShareMoreView Delegate
 
 - (void)dismissShareMoreView:(RFTShareMoreView *)shareMoreView
 {
-    [self p_dismissShareMoreView];
+    [self.shareView dissmiss];
 }
 
 - (void)shareMoreView:(RFTShareMoreView *)shareMoreView didSelectedIconWithName:(NSString *)iconName
@@ -101,75 +99,18 @@ static NSArray * shareIconDate()
     }
 }
 
-#pragma mark - WDShareMoreView related
+#pragma mark - Action
+
 -(IBAction)showShareMoreView:(id)sender
 {
-    CGRect rect = self.view.frame;
-    
-    if(_coverView == nil || _shareView == nil){
-        
-        UIWindow *window = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
-        
-        CGRect coverrc = rect;
-        coverrc.origin.y = rect.size.height;
-        
-        _coverView = [[UIView alloc] initWithFrame:coverrc];
-        _coverView.backgroundColor = [UIColor blackColor];
-        _coverView.alpha = 0.4;
-        [window addSubview:_coverView];
-        
-        UITapGestureRecognizer *gestureRcog = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(p_dismissShareMoreView)];
-        gestureRcog.numberOfTapsRequired = 1;
-        gestureRcog.numberOfTouchesRequired = 1;
-        [_coverView addGestureRecognizer:gestureRcog];
-        
-        CGRect viewrc = rect;
-        viewrc.origin.x = 0.0f;
-        viewrc.origin.y = rect.size.height;
-        viewrc.size.width = rect.size.width;
-        viewrc.size.height = 80.0f;
-        
-        _shareView = [[RFTShareMoreView alloc] initWithFrame:viewrc dataSource:self];
-        [window addSubview:_shareView];
-        
-        [_shareView setDelegate:self];
-    }
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:0.3];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-    CGRect mviewRc = _shareView.frame;
-    mviewRc.origin.y = rect.size.height - _shareView.frame.size.height;
-    _shareView.frame = mviewRc;
-    [UIView commitAnimations];
-    
-    CGRect coverRect = _coverView.frame;
-    coverRect.origin.y = 0;
-    _coverView.frame = coverRect;
+    [self.shareView show];
 }
 
--(void)p_dismissShareMoreView
-{
-    CGRect rect = self.view.frame;
-    
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        CGRect mviewRc = _shareView.frame;
-        mviewRc.origin.y = rect.size.height;
-        _shareView.frame = mviewRc;
-    } completion:^(BOOL finished) {
-    }];
-    
-    CGRect coverrc = _coverView.frame;
-    coverrc.origin.y = rect.size.height;
-    _coverView.frame = coverrc;
-}
-
-#pragma mark - private
+#pragma mark - Private Method
 
 - (void)p_copyShareLink
 {
-    [self p_dismissShareMoreView];
+    [self.shareView dissmiss];
     
     NSString *link = @"the link you want to copy";
     
