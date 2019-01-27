@@ -12,11 +12,21 @@
 
 @property (nonatomic, copy, readonly) NSString *iconName;
 
-/*
- "imageName"为icon的图片名，该icon选中的图片将默认为"imageName_selected"
+/**
+ RFTShareIcon 的初始化方法
+ @param imageName icon 的图片名，icon选中的图片名默认为 "$(imageName)_selected"
+ @param labelString icon 底部文本
  */
 - (instancetype) initWithImageName:(NSString *)imageName LabelString:(NSString *)labelString;
+
+/**
+ RFTShareIcon 的宽度
+ */
 + (CGFloat)iconWidth;
+
+/**
+ RFTShareIcon 的高度
+ */
 + (CGFloat)iconHeight;
 
 @end
