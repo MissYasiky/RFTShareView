@@ -16,5 +16,7 @@
  "imageName"为icon的图片名，该icon选中的图片将默认为"imageName_selected"
  */
 - (instancetype) initWithImageName:(NSString *)imageName LabelString:(NSString *)labelString;
++ (CGFloat)iconWidth;
++ (CGFloat)iconHeight;
 
 @end

@@ -10,11 +10,8 @@
 #import "RFTShareIcon.h"
 
 static NSTimeInterval kDuration = 0.3;
-static CGFloat kCoverViewAlpha = 0.4;
-
-static int32_t const kIconSizeWidth  = 54;
-static int32_t const kIconSizeHeight = 76;
-static int32_t const kIconPadding    = 18;
+static CGFloat kCoverViewAlpha  = 0.4;
+static CGFloat kIconYPadding     = 18;
 
 @interface RFTShareActionView ()
 
@@ -23,6 +20,7 @@ static int32_t const kIconPadding    = 18;
 @property (nonatomic, strong) UIView *coverView;
 @property (nonatomic, strong) UIView *shareActionView;
 @property (nonatomic, strong) UIButton *cancleButton;
+@property (nonatomic, assign) CGFloat bottom;
 
 @end
 
@@ -118,7 +116,9 @@ static int32_t const kIconPadding    = 18;
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.shareActionView addSubview:titleLabel];
     
-    CGFloat originX = (width - 4 * kIconSizeWidth) / 5;
+    CGFloat iconWidth = [RFTShareIcon iconWidth];
+    CGFloat iconHeight = [RFTShareIcon iconHeight];
+    CGFloat originX = (width - 4 * iconWidth) / 5;
     CGFloat originY = titleLabel.frame.size.height;
     
     for (int i = 0; i < section; i++) {
@@ -135,7 +135,7 @@ static int32_t const kIconPadding    = 18;
             NSString *iconText = [self.viewModel iconLabelText:type];
             RFTShareIcon *shareIcon = [[RFTShareIcon alloc] initWithImageName:imageName LabelString:iconText];
             shareIcon.tag = type;
-            shareIcon.frame = CGRectMake(originX + row % 4 * (originX + kIconSizeWidth), originY + row / 4 * (kIconSizeHeight + kIconPadding), kIconSizeWidth , kIconSizeHeight);
+            shareIcon.frame = CGRectMake(originX + row % 4 * (originX + iconWidth), originY + row / 4 * (iconHeight + kIconYPadding), iconWidth , iconHeight);
             [self.shareActionView addSubview:shareIcon];
             
             [shareIcon addTarget:self action:@selector(iconSelectedAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -143,8 +143,8 @@ static int32_t const kIconPadding    = 18;
             row ++;
         }
         
-        originY += kIconSizeHeight + kIconPadding;
-        originY += (row-1) / 4 * (kIconSizeHeight + kIconPadding);
+        originY += iconHeight + kIconYPadding;
+        originY += (row-1) / 4 * (iconHeight + kIconYPadding);
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, originY, width, 0.5)];
         line.backgroundColor = [UIColor colorWithRed:0xe6/255.0f green:0xe6/255.0f blue:0xe6/255.0f alpha:1.0];
@@ -155,9 +155,14 @@ static int32_t const kIconPadding    = 18;
     
     originY -= 12;
     
+    CGFloat btnHeight = 44.0;
+    if (@available(iOS 11.0, *)) {
+        UIWindow *window = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
+        btnHeight += window.safeAreaInsets.bottom;
+    }
     _cancleButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _cancleButton.backgroundColor = [UIColor clearColor];
-    [_cancleButton setFrame:CGRectMake(0, originY, width, 44)];
+    [_cancleButton setFrame:CGRectMake(0, originY, width, btnHeight)];
     [_cancleButton setTitle:@"取消" forState:UIControlStateNormal];
     [_cancleButton setTitleColor:[UIColor colorWithRed:0xc3/255.0f green:0xc6/255.0f blue:0xc7/255.0f alpha:1.0] forState:UIControlStateNormal];
     [_cancleButton setTitleColor:[UIColor colorWithRed:0x66/255.0f green:0xcc/255.0f blue:0xff/255.0f alpha:1.0] forState:UIControlStateHighlighted];
@@ -166,7 +171,7 @@ static int32_t const kIconPadding    = 18;
     [self.shareActionView addSubview:_cancleButton];
     
     CGRect shareViewRect = self.shareActionView.frame;
-    shareViewRect.size.height = _cancleButton.frame.origin.y + _cancleButton.frame.size.height;
+    shareViewRect.size.height = _cancleButton.frame.origin.y + btnHeight;
     self.shareActionView.frame = shareViewRect;
 }
 

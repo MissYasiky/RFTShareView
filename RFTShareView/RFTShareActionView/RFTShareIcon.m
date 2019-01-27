@@ -95,5 +95,14 @@ static CGFloat kPadding       = 10;
     }
 }
 
+#pragma mark - Public
+
++ (CGFloat)iconWidth {
+    return kImageViewSize;
+}
+
++ (CGFloat)iconHeight {
+    return kImageViewSize + kLabelHeight + kPadding;
+}
 
 @end
