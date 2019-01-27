@@ -12,7 +12,7 @@
 1、使用分享弹窗的 ViewController.m
 
 ```Objective-c
-#import “RFTShareActionView.h"
+#import "RFTShareActionView.h"
 
 @interface ViewController () <RFTShareActionViewDelegate>
 
@@ -31,7 +31,6 @@
 
 // 隐藏弹窗后的代理方法
 - (void)didDismissShareMoreView:(RFTShareActionView *)shareMoreView {
-
 }
 
 @end
