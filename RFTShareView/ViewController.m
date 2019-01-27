@@ -29,7 +29,8 @@
     if (_shareView == nil) {
         _shareViewModel = [[RFTShareActionViewModel alloc] init];
         _shareViewModel.dataSource = @[@[@(RFTShareTypeWechat), @(RFTShareTypeWXTimeLine), @(RFTShareTypeQQ), @(RFTShareTypeSina)], @[@(RFTShareTypeReport)]];
-        _shareView = [[RFTShareActionView alloc] initWithViewModel:_shareViewModel delegate:self];    }
+        _shareView = [[RFTShareActionView alloc] initWithViewModel:_shareViewModel delegate:self];
+    }
     return _shareView;
 }
 
